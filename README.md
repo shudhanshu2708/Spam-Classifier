@@ -3,7 +3,7 @@
 SMS spam detection using Python and Pandas.
 
 ## Dataset
-SMS Spam Collection Dataset — 5,572 messages (ham/spam)
+SMS Spam Collection Dataset — 5,572 messages (ham = "Normal Messsage"/spam)
 
 ## Libraries Used
 - Pandas
