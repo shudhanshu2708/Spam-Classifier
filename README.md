@@ -1,4 +1,4 @@
-# 📩 Spam Classifier
+<img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/eae1d8f3-8d98-43b4-b4a6-90b9aaf61cb1" /># 📩 Spam Classifier
 
 A simple SMS spam detection project built while learning Machine Learning.
 
@@ -22,6 +22,7 @@ Takes an SMS message and predicts whether it's **spam** or **ham** (normal messa
 | **Actual Spam** | 30 ❌ | 120 ✅ |
 
 ## Tech Used
+- ⚡ FastAPI
 - 🐍 Python
 - 🐼 Pandas
 - 🔢 NumPy
