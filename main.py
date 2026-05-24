@@ -1,40 +1,39 @@
-import numpy as np
+
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+import joblib
 
 df = pd.read_csv("spam.csv" , encoding="latin-1")
-
-
 
 df=df[["v1" , "v2"]]
 
 df.columns =[ "label" ,"message"]
 
-#print(df.head())
+X = df["message"]
+y = df["label"]
 
+X_train , X_test , y_train , y_test = train_test_split(X , y , test_size=0.2 , random_state =42)
 
-def check_spam(message):
-    if "free" in message or "FREE" in message or "claim" in message or "CLAIM" in message:
-        return "Spam!"
-    else:
-        return "ham!"
-    
-#for message in df["message"]:
-    #print(message,check_spam(message))
+tfidf = TfidfVectorizer(stop_words="english" , max_features=5000)
+df["message"] = df["message"].str.lower()
 
-df["prediction"] = df["message"].apply(check_spam)
-print(df["prediction"].value_counts())
+X_train_tfidf = tfidf.fit_transform(X_train)
+X_test_tfidf = tfidf.transform(X_test)
 
+model = MultinomialNB()
+model.fit(X_train_tfidf , y_train)
 
+y_pred = model.predict(X_test_tfidf)
+print("Accuracy: ", accuracy_score(y_test , y_pred))
 
-#df["label"].value_counts().plot(kind='bar')
-#plt.title("Spam classifier")
-#plt.xlabel("Label")
-#plt.ylabel("Message Count")
-#plt.tight_layout()
+print(confusion_matrix(y_test , y_pred))
+joblib.dump(model ," model.pkl")
+joblib.dump(tfidf, "tfidf.pkl")
 
-#plt.show()
 
 
 
