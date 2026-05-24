@@ -31,7 +31,7 @@ y_pred = model.predict(X_test_tfidf)
 print("Accuracy: ", accuracy_score(y_test , y_pred))
 
 print(confusion_matrix(y_test , y_pred))
-joblib.dump(model ," model.pkl")
+joblib.dump(model ,"model.pkl")
 joblib.dump(tfidf, "tfidf.pkl")
 
 
