@@ -6,6 +6,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import joblib
+import json
 
 df = pd.read_csv("spam.csv" , encoding="latin-1")
 
@@ -28,11 +29,17 @@ model = MultinomialNB()
 model.fit(X_train_tfidf , y_train)
 
 y_pred = model.predict(X_test_tfidf)
-print("Accuracy: ", accuracy_score(y_test , y_pred))
+acc = accuracy_score(y_test , y_pred)
 
+print("Accuracy:", acc)
 print(confusion_matrix(y_test , y_pred))
+
 joblib.dump(model ,"model.pkl")
 joblib.dump(tfidf, "tfidf.pkl")
+
+
+with open("metrics.json", "w") as f:
+    json.dump({"accuracy": acc}, f)
 
 
 
